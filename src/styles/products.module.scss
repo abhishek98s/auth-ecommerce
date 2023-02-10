@@ -1,0 +1,142 @@
+.title {
+    color: white;
+    font-size: 3rem;
+    font-weight: 600;
+    margin: 1em 0 .5em 45%;
+}
+
+.main {
+    display: grid;
+    grid-template-columns: .3fr 1fr;
+    margin: 0 4%;
+
+    @media only screen and (max-width: 960px) {
+        grid-template-columns: .4fr 1fr;
+    }
+
+    @media only screen and (max-width: 800px) {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .filterBox {
+        width: 100%;
+        height: max-content;
+        padding: 1em;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+        border-radius: 20px;
+
+        h2 {
+            font-size: 1.5rem;
+            color: white;
+            font-weight: 500;
+            padding: 0 0 .2em 0;
+            border-bottom: 3px solid white;
+        }
+
+        .category {
+            display: flex;
+            flex-direction: column;
+
+            h3 {
+                font-size: 1.1rem;
+                color: white;
+                font-weight: 500;
+                margin: .2em 0;
+            }
+
+            ul {
+                margin: 0 0 0 .4em;
+                // border: 2px white solid;
+                border-radius: 10px;
+                padding: .4em;
+                display: flex;
+                flex-direction: column;
+                gap: .5em;
+                background-color: none;
+
+                li {
+                    color: white;
+                    font-weight: 500;
+                    border-radius: 10px;
+                    width: 100%;
+                    padding: .2em .5em;
+                    background-color: #ffffff53;
+                    cursor: pointer;
+
+                    &:hover {
+                        background-color: #ffffff8c;
+                    }
+
+                    &:active {
+                        background-color: #ffffffaa;
+                    }
+                }
+            }
+        }
+
+        h3 {
+            font-size: 1.1rem;
+            color: white;
+            font-weight: 500;
+            margin: .5em 0;
+        }
+
+        .range {
+            display: flex;
+            flex: 1 1;
+            gap: 1em;
+            
+            input {
+                height: 2em;
+                width: 50%;
+                border-radius: 10px;
+                padding: .5em;
+                border: 2px solid white;
+                background-color: rgba(255, 255, 255, 0);
+                color: white;
+                outline: none;
+                font-size: 1rem;
+                
+                &::placeholder {
+                    color: white;
+                    font-size: 1rem;
+                }
+                
+                &:focus {
+                    box-shadow: 0 0 8px rgba(255, 255, 255, 0.956);
+                }
+            }
+        }
+        
+        button {
+            width: 100%;
+            height: 2em;
+            border: none;
+            border-radius: 10px;
+            background-color: #4fa7ff;
+            color: white;
+            
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin: .5em 0 0 0;
+
+            &:hover {
+                background-color: #399cff;
+            }
+        }
+
+
+    }
+
+    .productBox {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1em;
+        justify-content: space-evenly;
+        color: black;
+        font-weight: 600;
+    }
+
+}

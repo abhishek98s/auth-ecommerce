@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import styles from '../styles/login.module.scss'
 import { isEmail } from 'validator';
+import Head from 'next/head';
 
 const login = () => {
 
@@ -65,26 +66,31 @@ const login = () => {
     }
 
     return (
-        <div className={styles.body}>
+        <>
+            <Head>
+                <title>Login</title>
+            </Head>
+            <div className={styles.body}>
 
-            <form className={styles.loginBox} onSubmit={onSubmit}>
-                <h1>Login</h1>
+                <form className={styles.loginBox} onSubmit={onSubmit}>
+                    <h1>Login</h1>
 
-                <div className={styles.inputBox}>
-                    <p>Email<span>*</span></p>
-                    <input type='text' id='text1' name="email" spellcheck="false" placeholder='example@gmail.com' onChange={inputHandler} value={email} />
-                    <span className={styles.error}>{error.email}</span>
-                </div>
+                    <div className={styles.inputBox}>
+                        <p>Email<span>*</span></p>
+                        <input type='text' id='text1' name="email" spellcheck="false" placeholder='example@gmail.com' onChange={inputHandler} value={email} />
+                        <span className={styles.error}>{error.email}</span>
+                    </div>
 
-                <div className={styles.inputBox}>
-                    <p>Password<span>*</span></p>
-                    <input type='text' id='text1' name="password" spellcheck="false" placeholder='password' onChange={inputHandler} value={password} />
-                    <span className={styles.error}>{error.password}</span>
-                </div>
+                    <div className={styles.inputBox}>
+                        <p>Password<span>*</span></p>
+                        <input type='text' id='text1' name="password" spellcheck="false" placeholder='password' onChange={inputHandler} value={password} />
+                        <span className={styles.error}>{error.password}</span>
+                    </div>
 
-                <button>Login</button>
-            </form>
-        </div>
+                    <button>Login</button>
+                </form>
+            </div>
+        </>
     )
 }
 

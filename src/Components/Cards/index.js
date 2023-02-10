@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import styles from './products.module.scss'
+import styles from './cards.module.scss'
 import Image from "next/image";
-import Link from "next/link";
 
-const Products = ({ items }) => {
-  const { id, image, title, price } = items;
-
+const Cards = ({items, AddToCart}) => {
+  const {id, image, title, price} = items;
+  
   return (
     <div key={id} className={styles.productcard}>
       <div className={styles.product_top}>
@@ -26,15 +25,14 @@ const Products = ({ items }) => {
           $ <span>{price}</span>
         </p>
         <button name={id}>
-          <Link href="/products" legacyBehavior>
-            Learn more
-          </Link>
+          Add to Cart
         </button>
       </div>
-
       
     </div>
+
+    
   );
 };
 
-export default Products;
+export default Cards;
