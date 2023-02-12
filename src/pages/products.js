@@ -3,7 +3,7 @@ import Cards from '@/Components/Cards'
 import styles from '@/styles/products.module.scss'
 import { CartSvg } from 'public/svg'
 import { useSelector, useDispatch } from 'react-redux'
-import { toggle } from '@/Redux/toggleSlice.js'
+import { toggle, noOfItems } from '@/Redux/toggleSlice.js'
 import Cart from '@/Components/Cart Sidebar'
 
 export async function getServerSideProps() {
@@ -18,6 +18,7 @@ export async function getServerSideProps() {
 
 function Products({ data }) {
     const toggleValue = useSelector((state) => state.toggle.value);
+    const noOfItemsValue = useSelector((state) => state.toggle.noOfItems);
     const dispatch = useDispatch()
 
     const [productData, setProductData] = useState([]);
@@ -85,7 +86,7 @@ function Products({ data }) {
              
                     <div className={styles.shoppingcart} onClick={() => dispatch(toggle())}>
                         <CartSvg />
-                        <p>0</p>
+                        <p>{noOfItemsValue}</p>
                     </div>
                 
             </div>

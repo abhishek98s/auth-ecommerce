@@ -4,7 +4,7 @@ import styles from './cartCards.module.scss'
 
 const CartCards = ({ items, handleChange, removeItem, handlePrice }) => {
 
-    const { id, image, title, price, amount } = items;
+    const { id, images, title, price, amount, category } = items;
 
     //increse the value, amount in the obj and handle the price    
     function increase(e) {
@@ -29,7 +29,7 @@ const CartCards = ({ items, handleChange, removeItem, handlePrice }) => {
     return (
         <section key={id} className={styles.cart_products}>
             <div className={styles.image_bg}>
-                <img src={image} />
+                <img src={images[0]} />
             </div>
             <h2>{title}</h2>
 

@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
     value: false,
+    noOfItems: 1
 }
 
 export const counterSLice = createSlice({
@@ -10,10 +11,13 @@ export const counterSLice = createSlice({
     reducers: {
         toggle: (state) => {
             state.value = !(state.value)
+        },
+        noOfItems: (state, action) => {
+            state.noOfItems = action.payload
         }
     }
 })
 
-export const { toggle } = counterSLice.actions;
+export const { toggle, noOfItems } = counterSLice.actions;
 
 export default counterSLice.reducer
