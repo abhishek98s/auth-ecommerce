@@ -2,9 +2,24 @@ import React, { useState } from 'react'
 import styles from '../styles/login.module.scss'
 import { isEmail } from 'validator';
 import Head from 'next/head';
+import { useRouter } from 'next/router';
+
 
 const login = () => {
+    const router = useRouter();
 
+    let obj = [
+        {
+            user: "admin",
+            email: "jhon@gmail.com",
+            password: "jhon123"
+        }, {
+            user: "customer",
+            email: "smith@gmail.com",
+            password: "smit123"
+        }
+    ]
+    const [logError, setLogError] = useState(null);
     const [values, setValues] = useState({
         email: "",
         password: ""
@@ -63,6 +78,22 @@ const login = () => {
             alert('Please fix the errors in the form');
             return;
         }
+
+        for (let i = 0; i < obj.length; i++) {
+
+            if (obj[i].email === email && obj[i].password === password) {
+                window.location.pathname == "asd"
+                setLogError(null)
+                if(obj[i].user === "admin"){
+                    router.push('/')
+                }
+                break;
+            } else {
+                setLogError("Email or password is incorrect")
+            }
+        }
+
+
     }
 
     return (
@@ -77,14 +108,14 @@ const login = () => {
 
                     <div className={styles.inputBox}>
                         <p>Email<span>*</span></p>
-                        <input type='text' id='text1' name="email" spellcheck="false" placeholder='example@gmail.com' onChange={inputHandler} value={email} />
+                        <input type='text' id='text1' name="email" spellCheck="false" placeholder='example@gmail.com' onChange={inputHandler} value={email} />
                         <span className={styles.error}>{error.email}</span>
                     </div>
 
                     <div className={styles.inputBox}>
                         <p>Password<span>*</span></p>
-                        <input type='text' id='text1' name="password" spellcheck="false" placeholder='password' onChange={inputHandler} value={password} />
-                        <span className={styles.error}>{error.password}</span>
+                        <input type='text' id='text1' name="password" spellCheck="false" placeholder='password' onChange={inputHandler} value={password} />
+                        <span className={styles.error}>{error.password || logError}</span>
                     </div>
 
                     <button>Login</button>

@@ -3,14 +3,14 @@ import styles from './cards.module.scss'
 import Image from "next/image";
 
 const Cards = ({items, AddToCart}) => {
-  const {id, image, title, price} = items;
+  const {id, images, title, price} = items;
   
   return (
     <div key={id} className={styles.productcard}>
       <div className={styles.product_top}>
         <div className={styles.product_img}>
           <Image
-            src={image}
+            src={images[0]}
             priority="true"
             alt={title}
             width="200"

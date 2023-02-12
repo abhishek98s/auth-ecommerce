@@ -85,8 +85,9 @@
         .range {
             display: flex;
             flex: 1 1;
-            gap: 1em;
-            
+            gap: .4em;
+            margin: 0 0 0 .4em;
+
             input {
                 height: 2em;
                 width: 50%;

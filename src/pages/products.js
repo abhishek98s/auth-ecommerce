@@ -4,41 +4,43 @@ import styles from '@/styles/products.module.scss'
 
 export async function getServerSideProps() {
     // Fetch data from external API
-    const res = await fetch(`https://fakestoreapi.com/products`)
+    const res = await fetch(`https://dummyjson.com/products`)
     const data = await res.json()
 
-    // Pass data to the page via propswwwww
+    // Pass data to the page via props
     return { props: { data } }
 }
 
 
 function Products({ data }) {
     const [productData, setProductData] = useState([]);
-    const [from, setFrom] = useState(20);
-    const [to, setTo] = useState(50);
+    console.log(data.products)
+    const [from, setFrom] = useState();
+    const [to, setTo] = useState();
+
     useEffect(() => {
-        setProductData(data);
+        setProductData(data.products);
     }, []);
 
     const filterData = async (category) => {
 
         if (!category) {
-            const res = await fetch(`https://fakestoreapi.com/products`)
+            const res = await fetch(`https://dummyjson.com/products`)
             const data = await res.json()
-            setProductData(data)
+            setProductData(data.products)
         } else {
-            const res = await fetch(`https://fakestoreapi.com/products/category/${category}`)
+            const res = await fetch(`https://dummyjson.com/products/category/${category}`)
             const data = await res.json()
 
-            setProductData(data)
+            setProductData(data.products)
         }
     }
 
     const filterAll = () => filterData();
-    const filterMen = () => filterData("men's clothing");
-    const filterWomen = () => filterData("women's clothing");
-    const filterJewelery = () => filterData("jewelery");
-    const filterElectornics = () => filterData("electronics");
+    const filterSmartphones = () => filterData("smartphones");
+    const filterWomen = () => filterData("laptops");
+    const filterJewelery = () => filterData("fragrances");
+    const filterElectornics = () => filterData("skincare");
 
 
     const inputHandler = (e) => {
@@ -57,8 +59,8 @@ function Products({ data }) {
         }
     }
 
-    const filterPriceRange = async() => {
-        await setProductData(data);
+    const filterPriceRange = async () => {
+        await setProductData(data.products);
         let pricefrom = Number(from);
         let priceto = Number(to);
         let filterdata = productData.filter((item) => item.price > pricefrom && item.price < priceto);
@@ -77,18 +79,18 @@ function Products({ data }) {
 
                         <ul>
                             <li onClick={filterAll}>All</li>
-                            <li onClick={filterMen}>Men's Clothing</li>
-                            <li onClick={filterWomen}>Women's Clothing</li>
-                            <li onClick={filterJewelery}>Jewelery</li>
-                            <li onClick={filterElectornics}>Electronics</li>
+                            <li onClick={filterSmartphones}>Smartphones</li>
+                            <li onClick={filterWomen}>Laptops</li>
+                            <li onClick={filterJewelery}>Fragrances</li>
+                            <li onClick={filterElectornics}>Skincare</li>
                         </ul>
                     </div>
 
                     <h3>Range</h3>
                     <form className={styles.range}>
-                        <input type='number' spellCheck='false' name='from' onChange={inputHandler}  />
+                        <input type='number' spellCheck='false' name='from' placeholder='From' onChange={inputHandler} />
 
-                        <input type='number' spellCheck='false' name='to' onChange={inputHandler}  />
+                        <input type='number' spellCheck='false' name='to' placeholder='To' onChange={inputHandler} />
                     </form>
                     <button onClick={filterPriceRange}>Filter</button>
                 </article>
