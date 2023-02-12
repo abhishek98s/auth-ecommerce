@@ -1,6 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import Cards from '@/Components/Cards'
 import styles from '@/styles/products.module.scss'
+import { CartSvg } from 'public/svg'
+import { useSelector, useDispatch } from 'react-redux'
+import { toggle } from '@/Redux/toggleSlice.js'
+import Cart from '@/Components/Cart Sidebar'
 
 export async function getServerSideProps() {
     // Fetch data from external API
@@ -13,21 +17,30 @@ export async function getServerSideProps() {
 
 
 function Products({ data }) {
+    const toggleValue = useSelector((state) => state.toggle.value);
+    const dispatch = useDispatch()
+
     const [productData, setProductData] = useState([]);
-    console.log(data.products)
     const [from, setFrom] = useState();
     const [to, setTo] = useState();
 
+    function setLocalData() {
+        let localData = localStorage.getItem("apiData");
+        if (localData) {
+            setProductData(JSON.parse(localData))                                                    //Get api data from the localStorage to get avoid duplicate GET request
+        } else {
+            let localData = localStorage.setItem("apiData", JSON.stringify(data.products));          //Store the api data if not already stored
+            setProductData(JSON.parse(localData))
+        }
+    }
     useEffect(() => {
-        setProductData(data.products);
+        setLocalData();
     }, []);
 
     const filterData = async (category) => {
 
         if (!category) {
-            const res = await fetch(`https://dummyjson.com/products`)
-            const data = await res.json()
-            setProductData(data.products)
+            setLocalData();
         } else {
             const res = await fetch(`https://dummyjson.com/products/category/${category}`)
             const data = await res.json()
@@ -68,7 +81,14 @@ function Products({ data }) {
     }
     return (
         <>
-            <h1 className={styles.title}>Products</h1>
+            <div className={styles.titleBox} >
+             
+                    <div className={styles.shoppingcart} onClick={() => dispatch(toggle())}>
+                        <CartSvg />
+                        <p>0</p>
+                    </div>
+                
+            </div>
 
             <section className={styles.main}>
                 <article className={styles.filterBox} >
@@ -96,10 +116,39 @@ function Products({ data }) {
                 </article>
 
                 <article className={styles.productBox}>
-                    {productData.map((item) => (
-                        <Cards items={item} />
-                    ))}
+
+                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
+                        <table className='w-full text-left' >
+                            <thead className="text-xs text-gray-700 uppercase bg-blue-500/[.8]">
+                                <tr>
+                                    <th className="px-6 py-4">
+                                        Product name
+                                    </th>
+                                    <th className="px-6 py-4">
+                                        Category
+                                    </th>
+                                    <th className="px-6 py-4">
+                                        Price
+                                    </th>
+                                    <th className="px-6 py-4">
+                                        Action
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+
+                                {productData.map((item) => (
+                                    <Cards items={item} />
+                                ))}
+
+                            </tbody>
+                        </table>
+                    </div>
+
                 </article>
+                {toggleValue &&
+                <Cart />
+                }
 
             </section>
         </>

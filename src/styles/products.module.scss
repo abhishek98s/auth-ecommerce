@@ -1,14 +1,62 @@
-.title {
-    color: white;
-    font-size: 3rem;
-    font-weight: 600;
-    margin: 1em 0 .5em 45%;
+.titleBox {
+    position: relative;
+    height: 15vh;
+    margin: 2em 4% 0 4%;
+
+    .shoppingcart {
+        position: fixed;
+        top: 1em;
+        right: 3%;
+        background: black;
+        border-radius: 50%;
+        z-index: 999;
+        width: 2.5em;
+        height: 2.5em;
+        display: flex;
+        justify-content: center;
+        animation: updown ease-in-out;
+        animation-duration: 1s;
+        animation-iteration-count: infinite;
+        animation-direction: alternate-reverse;
+
+        @keyframes updown {
+            0%   { transform: translateY(0); }
+            50%  { transform: translateY(-10px); }
+            100% { transform: translateY(0); }
+            
+        }
+
+        svg{
+            width: 1.8rem;
+            height: 1.8rem;
+            cursor: pointer;
+            margin: 8px 0 0 0;
+            margin: auto;
+
+            &:active{
+                scale: 1.05s;
+            }
+        }
+
+        p{
+            position: absolute;
+            top: 0;
+            right: 0;
+            color: white;
+            padding: 0 3px;
+            font-size: 1rem;
+            font-weight: 600;
+            border-radius: 50%;
+            background-color: rgb(39, 39, 39);
+          }
+    }
 }
 
 .main {
     display: grid;
     grid-template-columns: .3fr 1fr;
     margin: 0 4%;
+    gap: 1em;
 
     @media only screen and (max-width: 960px) {
         grid-template-columns: .4fr 1fr;
@@ -98,18 +146,18 @@
                 color: white;
                 outline: none;
                 font-size: 1rem;
-                
+
                 &::placeholder {
                     color: white;
                     font-size: 1rem;
                 }
-                
+
                 &:focus {
                     box-shadow: 0 0 8px rgba(255, 255, 255, 0.956);
                 }
             }
         }
-        
+
         button {
             width: 100%;
             height: 2em;
@@ -117,7 +165,7 @@
             border-radius: 10px;
             background-color: #4fa7ff;
             color: white;
-            
+
             font-size: 1rem;
             font-weight: 600;
             cursor: pointer;

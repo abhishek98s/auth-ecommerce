@@ -1,0 +1,159 @@
+.navbar{
+    position: absolute;
+    top: 0;
+    color:gray;
+    display: grid;
+    width: 100%;
+    grid-template-columns: .6fr auto;
+    padding: 1rem 4%;
+    background-color: rgba(0, 0, 0, 0.167);
+    z-index: 100;
+    backdrop-filter: blur(2px);
+
+    h1{
+        display: grid;
+        font-family: anurati;
+        color: white;
+        font-size: 30px;
+    }
+
+    .navbarList{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        a{
+            color: rgb(255, 245, 227);
+            padding: 0 1rem;
+            font-weight: 500;
+            border: 1px solid ;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-size: 16px;
+            transition: 0.5s;
+
+            &:hover{
+                color: black;
+                background-color: white;
+                transition: 0.2s;
+                border-radius: 10px;
+            }
+          }
+    }
+
+    .active{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+
+        a{
+            color: rgb(255, 245, 227);
+            padding: 0 1rem;
+            font-weight: 500;
+            border: 1px solid ;
+            border-top: none;
+            border-left: none;
+            border-right: none;
+            font-size: 16px;
+
+            &a:hover{
+                color: black;
+                background-color: white;
+                transition: 0.2s;
+            }
+        }
+    }
+
+    //For the products page
+    
+
+    //for the mobile hamburger menu
+    .side_menu{
+        display: none;
+        margin: auto 0;
+        cursor: pointer;
+        z-index: 101;
+
+        .sidebar{
+            max-width: 26px;
+            background-color: white;
+            height: 3px;
+            border-radius: 5px;
+            display: block;
+            margin-top: 4px;
+        }
+    }
+}
+
+
+@media only screen and (max-width: 1000px){
+    .navbar{
+        grid-template-columns: auto auto 36px;
+        grid-template-areas: "logo . menu";
+
+        .active{
+            display:flex;
+            flex-direction: column;
+            justify-content: flex-start;
+            gap:1rem;
+            position: absolute;
+            right: 0;
+            padding-top: 6rem;
+            min-width: 16rem;
+            height: 100vh;
+            background-color: rgb(41, 41, 41);
+            animation-name: sidemenu;
+            animation-duration: 0.5s;
+        
+            a{
+                animation-name: activea;
+                animation-duration: 0.5s;
+            }
+        }
+
+        .navbarList{  
+            display: none;
+        }
+        
+        .active a{
+            padding: 0.2rem;
+
+            &:hover{
+                color: white;
+                background-color: rgb(68, 68, 68);
+                width: 100%;
+                text-align: center;
+                transition: 0.1s;
+            }
+        }
+
+        .side_menu{
+            display: block;
+            grid-area: menu;
+        }
+    }
+}
+
+@keyframes activea {
+    from{
+      font-size: 0rem;
+    }
+
+    to {
+      font-size: 1rem;
+    }
+  }
+
+  @keyframes sidemenu {
+    from{
+      min-width: 0rem;
+      display:none;
+    }
+
+    to {
+      min-width: 16rem;
+      font-size: 1rem;
+      display:block;
+    }
+  }
