@@ -19,9 +19,13 @@ export default function Cart() {
      let parseCartData = JSON.parse(CartData);
 
      setCartItems(JSON.parse(CartData));
-     dispatch(noOfItems(parseCartData.length))
+     if(CartData){
+       dispatch(noOfItems(parseCartData.length))
+      }
+      handlePrice();
 
   }, [cartItems])
+
 
   const handleChange = (item, d) => {
     const ind = cartItems.indexOf(item);
@@ -37,21 +41,27 @@ export default function Cart() {
     localStorage.setItem("cart", JSON.stringify(arr))
   }
 
+
   function removeItem(id){
     const arr = cartItems.filter((item) => item.id !== id);
     localStorage.setItem("cart",JSON.stringify(arr))
     setCartItems(arr);
   }
 
+
   function handlePrice(){
     let price =0;
-    cartItems.map((item) => (price += item.amount * item.price));
-    setTotal_price(price);
+
+    if(cartItems){
+      cartItems.map((item) => (price += item.amount * item.price));
+      setTotal_price(price);
+    }
   }
+
 
   useEffect(() => {
     handlePrice();
-  })
+  },[])
 
   return (
     <div
@@ -76,7 +86,7 @@ export default function Cart() {
       </div>
 
       <div className={styles.clicked_products}>
-        {cartItems.map((items) => {
+        {cartItems && cartItems.map((items) => {
           return (
             <CartCards key={items.id} items={items} 
             handleChange={handleChange} 

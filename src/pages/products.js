@@ -22,6 +22,7 @@ function Products({ data }) {
     const dispatch = useDispatch()
 
     const [productData, setProductData] = useState([]);
+    const [filterData, setFilterData] = useState("");
     const [from, setFrom] = useState();
     const [to, setTo] = useState();
 
@@ -30,31 +31,46 @@ function Products({ data }) {
         if (localData) {
             setProductData(JSON.parse(localData))                                                    //Get api data from the localStorage to get avoid duplicate GET request
         } else {
-            let localData = localStorage.setItem("apiData", JSON.stringify(data.products));          //Store the api data if not already stored
-            setProductData(JSON.parse(localData))
-        }
-    }
-    useEffect(() => {
-        setLocalData();
-    }, []);
-
-    const filterData = async (category) => {
-
-        if (!category) {
-            setLocalData();
-        } else {
-            const res = await fetch(`https://dummyjson.com/products/category/${category}`)
-            const data = await res.json()
-
+            localStorage.setItem("apiData", JSON.stringify(data.products));          //Store the api data if not already stored
             setProductData(data.products)
         }
     }
 
-    const filterAll = () => filterData();
-    const filterSmartphones = () => filterData("smartphones");
-    const filterWomen = () => filterData("laptops");
-    const filterJewelery = () => filterData("fragrances");
-    const filterElectornics = () => filterData("skincare");
+    useEffect(() => {
+        setLocalData();
+    }, []);
+
+    // const filterData = async (category) => {
+
+    //     if (!category) {
+    //         setLocalData();
+    //     } else {
+    //         const res = await fetch(`https://dummyjson.com/products/category/${category}`)
+    //         const data = await res.json()
+
+    //         setProductData(data.products)
+    //     }
+    // }
+
+    // filter the data and show it accordingly
+    function filter_func(productData) {
+        if (!filterData) {
+            return productData;
+        }
+        return productData.category === filterData;
+    }
+
+    const filterAll = () => setFilterData("");
+    const filterSmartphones = () => setFilterData("smartphones");
+    const filterWomen = () => setFilterData("laptops");
+    const filterJewelery = () => setFilterData("fragrances");
+    const filterElectornics = () => setFilterData("skincare");
+
+    // const filterAll = () => filterData();
+    // const filterSmartphones = () => filterData("smartphones");
+    // const filterWomen = () => filterData("laptops");
+    // const filterJewelery = () => filterData("fragrances");
+    // const filterElectornics = () => filterData("skincare");
 
 
     const inputHandler = (e) => {
@@ -80,45 +96,63 @@ function Products({ data }) {
         let filterdata = productData.filter((item) => item.price > pricefrom && item.price < priceto);
         setProductData(filterdata);
     }
+
+    // const setfile= async(e)=>{
+    //     const image = e.target.files[0];
+
+    //     const reader = new FileReader();
+
+    //     reader.addEventListener("load", () => {
+    //         console.log(reader.result);
+    //     })
+
+    //     reader.readAsDataURL(image);
+    // }
     return (
         <>
             <div className={styles.titleBox} >
-             
-                    <div className={styles.shoppingcart} onClick={() => dispatch(toggle())}>
-                        <CartSvg />
-                        <p>{noOfItemsValue}</p>
-                    </div>
-                
+
+                <div className={styles.shoppingcart} onClick={() => dispatch(toggle())}>
+                    <CartSvg />
+                    <p>{noOfItemsValue}</p>
+                </div>
+
             </div>
 
             <section className={styles.main}>
-                <article className={styles.filterBox} >
-                    <h2>Filter</h2>
+                <div className={styles.filterAdd}>
+                    <article className={styles.filterBox} >
+                        <h2>Filter</h2>
 
-                    <div className={styles.category}>
-                        <h3>Category</h3>
+                        <div className={styles.category}>
+                            <h3>Category</h3>
 
-                        <ul>
-                            <li onClick={filterAll}>All</li>
-                            <li onClick={filterSmartphones}>Smartphones</li>
-                            <li onClick={filterWomen}>Laptops</li>
-                            <li onClick={filterJewelery}>Fragrances</li>
-                            <li onClick={filterElectornics}>Skincare</li>
-                        </ul>
-                    </div>
+                            <ul>
+                                <li onClick={filterAll}>All</li>
+                                <li onClick={filterSmartphones}>Smartphones</li>
+                                <li onClick={filterWomen}>Laptops</li>
+                                <li onClick={filterJewelery}>Fragrances</li>
+                                <li onClick={filterElectornics}>Skincare</li>
+                            </ul>
+                        </div>
 
-                    <h3>Range</h3>
-                    <form className={styles.range}>
-                        <input type='number' spellCheck='false' name='from' placeholder='From' onChange={inputHandler} />
+                        <h3>Range</h3>
+                        <form className={styles.range}>
+                            <input type='number' spellCheck='false' name='from' placeholder='From' onChange={inputHandler} />
 
-                        <input type='number' spellCheck='false' name='to' placeholder='To' onChange={inputHandler} />
-                    </form>
-                    <button onClick={filterPriceRange}>Filter</button>
-                </article>
+                            <input type='number' spellCheck='false' name='to' placeholder='To' onChange={inputHandler} />
+                        </form>
+                        <button onClick={filterPriceRange}>Filter</button>
+                    </article>
+
+                    <article className={styles.addItems}>
+                        <p>sd</p>
+                    </article>
+                </div>
 
                 <article className={styles.productBox}>
 
-                    <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
+                    {/* <div className="relative overflow-x-auto shadow-md sm:rounded-lg w-full">
                         <table className='w-full text-left' >
                             <thead className="text-xs text-gray-700 uppercase bg-blue-500/[.8]">
                                 <tr>
@@ -136,19 +170,25 @@ function Products({ data }) {
                                     </th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody> */}
 
-                                {productData.map((item) => (
-                                    <Cards items={item} />
-                                ))}
+                    {/* <input type="file" onChange={setfile}/> */}
 
-                            </tbody>
+                    {productData
+                        .filter((productData) => {
+                            return filter_func(productData);
+                        })
+                        .map((item) => (
+                            <Cards key={item.id} items={item} />
+                        ))}
+
+                    {/* </tbody>
                         </table>
-                    </div>
+                    </div> */}
 
                 </article>
                 {toggleValue &&
-                <Cart />
+                    <Cart />
                 }
 
             </section>

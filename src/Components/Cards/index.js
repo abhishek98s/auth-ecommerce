@@ -45,47 +45,44 @@ const Cards = ({ items }) => {
   }
 
   return (
-    // <div key={id} className={styles.productcard}>
-    //   <div className={styles.product_top}>
-    //     <div className={styles.product_img}>
-    //       <Image
-    //         src={images[0]}
-    //         priority="true"
-    //         alt={title}
-    //         width="200"
-    //         height="200"
-    //       />
-    //     </div>
-    //   </div>
+    <div key={id} className={styles.productcard}>
+      <div className={styles.product_top}>
+        <div className={styles.product_img}>
+          <Image
+            src={images[0]}
+            priority="true"
+            alt={title}
+            width="200"
+            height="200"
+          />
+        </div>
+      </div>
 
-    //   <div className={styles.product_down}>
-    //     <h2>{title}</h2>
-    //     <p>
-    //       $ <span>{price}</span>
-    //     </p>
-    //     <button name={id}>
-    //       Add to Cart
-    //     </button>
-    //   </div>
+      <div className={styles.product_down}>
+        <h2>{title}</h2>
+        <p>
+          $ <span>{price}</span>
+        </p>
+        <button onClick={AddToCart} name={id}>
+          Buy
+        </button>
+      </div>
 
-    // </div>
-
-    <tr key={id} className="odd:bg-violet-200/[.7]">
-      <th scope="row" className="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-        {title}
-      </th>
-      <td className="px-6 py-4">
-        {category}
-      </td>
-      <td className="px-6 py-4">
-        $ {price}
-      </td>
-      <td className="px-6 py-4">
-        <button onClick={AddToCart} className="font-medium text-blue-600 dark:text-blue-500 hover:underline">AddToCart</button>
-      </td>
-    </tr>
-
-
+    </div>
+    // <tr className="odd:bg-blue-600/[.2]">
+    //   <th scope="row" className="px-6 py-2 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+    //     {title}
+    //   </th>
+    //   <td className="px-6 py-2">
+    //     {category}
+    //   </td>
+    //   <td className="px-6 py-2">
+    //     $ {price}
+    //   </td>
+    //   <td className="px-6 py-2">
+    //     <button onClick={AddToCart} className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">Buy</button>
+    //   </td>
+    // </tr>
   );
 };
 
