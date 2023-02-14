@@ -28,8 +28,8 @@ const CartCards = ({ items, handleChange, removeItem, handlePrice }) => {
 
     return (
         <section key={id} className={styles.cart_products}>
-            <div className={styles.image_bg}>
-                <img src={images[0]} />
+            <div>
+                <p>-</p>
             </div>
             <h2>{title}</h2>
 
