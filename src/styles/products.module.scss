@@ -213,6 +213,7 @@
         justify-content: space-evenly;
         color: black;
         font-weight: 600;
+        align-content: flex-start;
 
         @media only screen and (max-width: 600px) {
             display: grid;

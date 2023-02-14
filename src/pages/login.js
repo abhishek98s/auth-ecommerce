@@ -92,6 +92,7 @@ const login = () => {
 
             if (parseLocalData[i].email === email && parseLocalData[i].password === password) {
                 setLogError(null)
+                localStorage.setItem("authedUser", "LOGGED IN")
                 router.push('/')
                 if(parseLocalData[i].user === "admin"){
                     router.push('/')

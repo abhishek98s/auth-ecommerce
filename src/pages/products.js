@@ -6,38 +6,32 @@ import { useSelector, useDispatch } from 'react-redux'
 import { toggle, noOfItems } from '@/Redux/toggleSlice.js'
 import Cart from '@/Components/Cart Sidebar'
 import AddProduct from '@/Components/Add products'
-
-export async function getServerSideProps() {
-    // Fetch data from external API
-    const res = await fetch(`https://dummyjson.com/products`)
-    const data = await res.json()
-
-    // Pass data to the page via props
-    return { props: { data } }
-}
+import withAuth from '@/Auth/auth'
 
 
 function Products({ data }) {
     const toggleValue = useSelector((state) => state.toggle.value);
     const noOfItemsValue = useSelector((state) => state.toggle.noOfItems);
-    const dispatch = useDispatch()
+    const items = useSelector((state) => state.toggle.items)
+    console.log(items)
+    const dispatch = useDispatch();
 
     const [productData, setProductData] = useState([]);
     const [filterData, setFilterData] = useState("");
     const [from, setFrom] = useState();
     const [to, setTo] = useState();
 
-    function setLocalData() {
-        let localData = localStorage.getItem("apiData");
-        if (localData) {
-            setProductData(JSON.parse(localData))                                                    //Get api data from the localStorage to get avoid duplicate GET request
-        } else {
-            localStorage.setItem("apiData", JSON.stringify(data.products));          //Store the api data if not already stored
-            setProductData(data.products)
-        }
-    }
 
     useEffect(() => {
+        function setLocalData() {
+            let localData = localStorage.getItem("apiData");
+            if (localData) {
+                setProductData(JSON.parse(localData))                                     //Get api data from the localStorage to get avoid duplicate GET request
+            } else {
+                localStorage.setItem("apiData", JSON.stringify(items.products));          //Store the api data if not already stored
+                setProductData(items.products)
+            }
+        }
         setLocalData();
     }, []);
 
@@ -54,6 +48,13 @@ function Products({ data }) {
     // }
 
     // filter the data and show it accordingly
+
+    // const filterAll = () => filterData();
+    // const filterSmartphones = () => filterData("smartphones");
+    // const filterWomen = () => filterData("laptops");
+    // const filterJewelery = () => filterData("fragrances");
+    // const filterElectornics = () => filterData("skincare");
+
     function filter_func(productData) {
         if (!filterData) {
             return productData;
@@ -67,11 +68,6 @@ function Products({ data }) {
     const filterJewelery = () => setFilterData("fragrances");
     const filterElectornics = () => setFilterData("skincare");
 
-    // const filterAll = () => filterData();
-    // const filterSmartphones = () => filterData("smartphones");
-    // const filterWomen = () => filterData("laptops");
-    // const filterJewelery = () => filterData("fragrances");
-    // const filterElectornics = () => filterData("skincare");
 
 
     const inputHandler = (e) => {
@@ -98,17 +94,6 @@ function Products({ data }) {
         setProductData(filterdata);
     }
 
-    // const setfile= async(e)=>{
-    //     const image = e.target.files[0];
-
-    //     const reader = new FileReader();
-
-    //     reader.addEventListener("load", () => {
-    //         console.log(reader.result);
-    //     })
-
-    //     reader.readAsDataURL(image);
-    // }
     return (
         <>
             <div className={styles.titleBox} >
@@ -117,7 +102,6 @@ function Products({ data }) {
                     <CartSvg />
                     <p>{noOfItemsValue}</p>
                 </div>
-
             </div>
 
             <section className={styles.main}>
@@ -146,7 +130,7 @@ function Products({ data }) {
                         <button onClick={filterPriceRange}>Filter</button>
                     </article>
 
-                    <AddProduct styles={styles} setProductData={setProductData}/>
+                    <AddProduct styles={styles} setProductData={setProductData} />
                 </div>
 
                 <article className={styles.productBox}>
@@ -171,8 +155,6 @@ function Products({ data }) {
                             </thead>
                             <tbody> */}
 
-                    {/* <input type="file" onChange={setfile}/> */}
-
                     {productData
                         .filter((productData) => {
                             return filter_func(productData);
@@ -195,4 +177,4 @@ function Products({ data }) {
     )
 }
 
-export default Products
+export default withAuth(Products)

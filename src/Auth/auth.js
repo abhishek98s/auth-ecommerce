@@ -1,5 +1,6 @@
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
 
 const withAuth = (Component) => {
 
@@ -9,19 +10,21 @@ const withAuth = (Component) => {
 
         useEffect(() => {
             const getUser = async () => {
-                const response = await fetch('http://localhost:4000/user/me');
-                const userData = await response.json();
-                if (!userData) {
-                    router.push('/admin/login');
-                } else {
-                    setData(userData);
+                const response = localStorage.getItem("authedUser");
+                if (!response) {
+                    router.push('/login');
+                } 
+                else {
+                    setData(response);
                 }  
             };
             getUser();
         }, []);
 
-        return !!data ? <Component data={data} /> : null; // Render whatever you want while the authentication occurs
+        return !!data ? <Component/> : null; // Render whatever you want while the authentication occurs
     };
 
     return AuthenticatedComponent;
 };
+
+export default withAuth;
