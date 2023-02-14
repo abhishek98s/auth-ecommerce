@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from '../styles/login.module.scss'
 import { isEmail } from 'validator';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
-import Link from 'next/link';
 
 
 const login = () => {
@@ -81,25 +80,24 @@ const login = () => {
         }
 
         let localData = localStorage.getItem("userData");
-        let parseLocalData;
         if(localData){
-            parseLocalData = JSON.parse(localData);
-            console.log(parseLocalData);
-        }
+            let parseLocalData = JSON.parse(localData);
 
-
-        for (let i = 0; i < parseLocalData.length; i++) {
-
-            if (parseLocalData[i].email === email && parseLocalData[i].password === password) {
-                setLogError(null)
-                router.push('/')
-                if(parseLocalData[i].user === "admin"){
-                    router.push('/')
-                }
-                break;
-            } else {
-                setLogError("Email or password is incorrect")
+            let addToLocal = {
+                email: values.email,
+                password: values.password
             }
+
+            parseLocalData.push(addToLocal);
+
+            localStorage.setItem("userData", JSON.stringify(parseLocalData))
+        } else {
+            let addToLocal = {
+                email: values.email,
+                password: values.password
+            }
+            let arr = [addToLocal]
+            localStorage.setItem("userData", JSON.stringify(arr));   
         }
 
 
@@ -108,12 +106,12 @@ const login = () => {
     return (
         <>
             <Head>
-                <title>Login</title>
+                <title>Register</title>
             </Head>
             <div className={styles.body}>
 
                 <form className={styles.loginBox} onSubmit={onSubmit}>
-                    <h1>Login</h1>
+                    <h1>Register</h1>
 
                     <div className={styles.inputBox}>
                         <p>Email<span>*</span></p>
@@ -127,10 +125,7 @@ const login = () => {
                         <span className={styles.error}>{error.password || logError}</span>
                     </div>
 
-                    <button>Login</button>
-                    <div className='text-stone-800 font-semibold mt-4'>Don't have an account? <Link href="/register" legacyBehavior><span className='text-violet-500 underline underline-offset-2 hover:no-underline cursor-pointer'>Register Here</span></Link></div>
-                    <p>{logError}</p>
-
+                    <button>Register</button>
                 </form>
             </div>
         </>
