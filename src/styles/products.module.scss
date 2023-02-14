@@ -84,6 +84,12 @@
         flex-direction: column;
         gap: 1em;
 
+        @media only screen and (max-width: 800px) {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1em;
+        }
+
 
         .filterBox {
             width: 100%;
@@ -197,7 +203,7 @@
 
         }
 
-        
+
     }
 
     .productBox {
