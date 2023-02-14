@@ -91,6 +91,7 @@ const login = () => {
             parseLocalData.push(addToLocal);
 
             localStorage.setItem("userData", JSON.stringify(parseLocalData))
+            router.push('/login')
         } else {
             let addToLocal = {
                 email: values.email,
@@ -98,6 +99,7 @@ const login = () => {
             }
             let arr = [addToLocal]
             localStorage.setItem("userData", JSON.stringify(arr));   
+            router.push('/login')
         }
 
 
