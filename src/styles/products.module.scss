@@ -197,13 +197,7 @@
 
         }
 
-        .addItems{
-            width: 100%;
-            height: max-content;
-            padding: 1em;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-            border-radius: 20px;
-        }
+        
     }
 
     .productBox {
@@ -218,6 +212,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             margin: 0 5%;
+            gap: 1em;
         }
     }
 

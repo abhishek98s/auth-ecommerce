@@ -46,7 +46,7 @@ const Cards = ({ items }) => {
 
   return (
     <div key={id} className={styles.productcard}>
-      <div className={styles.product_top}>
+      {/* <div className={styles.product_top}>
         <div className={styles.product_img}>
           <Image
             src={images[0]}
@@ -56,7 +56,7 @@ const Cards = ({ items }) => {
             height="200"
           />
         </div>
-      </div>
+      </div> */}
 
       <div className={styles.product_down}>
         <h2>{title}</h2>

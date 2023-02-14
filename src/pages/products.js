@@ -5,6 +5,7 @@ import { CartSvg } from 'public/svg'
 import { useSelector, useDispatch } from 'react-redux'
 import { toggle, noOfItems } from '@/Redux/toggleSlice.js'
 import Cart from '@/Components/Cart Sidebar'
+import AddProduct from '@/Components/Add products'
 
 export async function getServerSideProps() {
     // Fetch data from external API
@@ -145,9 +146,7 @@ function Products({ data }) {
                         <button onClick={filterPriceRange}>Filter</button>
                     </article>
 
-                    <article className={styles.addItems}>
-                        <p>sd</p>
-                    </article>
+                    <AddProduct styles={styles} setProductData={setProductData}/>
                 </div>
 
                 <article className={styles.productBox}>
