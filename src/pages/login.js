@@ -132,13 +132,13 @@ const login = () => {
 
                     <div className={styles.inputBox}>
                         <p>Email<span>*</span></p>
-                        <input type='text' id='text1' name="email" spellCheck="false" placeholder='example@gmail.com' onChange={inputHandler} value={email} />
+                        <input type='text' id='text1' name="email" spellCheck="false" placeholder='admin@gmail.com' onChange={inputHandler} value={email} />
                         <span className={styles.error}>{error.email}</span>
                     </div>
 
                     <div className={styles.inputBox}>
                         <p>Password<span>*</span></p>
-                        <input type='text' id='text1' name="password" spellCheck="false" placeholder='password' onChange={inputHandler} value={password} />
+                        <input type='text' id='text1' name="password" spellCheck="false" placeholder='admin123' onChange={inputHandler} value={password} />
                         <span className={styles.error}>{error.password || logError}</span>
                     </div>
 
