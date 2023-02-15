@@ -79,7 +79,7 @@ const login = () => {
             return;
         }
 
-        let localData = localStorage.getItem("userData");
+        let localData = sessionStorage.getItem("userData");
         if(localData){
             let parseLocalData = JSON.parse(localData);
 
@@ -90,7 +90,7 @@ const login = () => {
 
             parseLocalData.push(addToLocal);
 
-            localStorage.setItem("userData", JSON.stringify(parseLocalData))
+            sessionStorage.setItem("userData", JSON.stringify(parseLocalData))
             router.push('/login')
         } else {
             let addToLocal = {
@@ -98,7 +98,7 @@ const login = () => {
                 password: values.password
             }
             let arr = [addToLocal]
-            localStorage.setItem("userData", JSON.stringify(arr));   
+            sessionStorage.setItem("userData", JSON.stringify(arr));   
             router.push('/login')
         }
 

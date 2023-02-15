@@ -4,9 +4,12 @@ import { isEmail } from 'validator';
 import Head from 'next/head';
 import { useRouter } from 'next/router';
 import Link from 'next/link';
+import { useDispatch } from 'react-redux';
+import { setAdmin, setSignin } from '@/Redux/toggleSlice';
 
 
 const login = () => {
+    const dispatch = useDispatch();
     const router = useRouter();
 
     let obj = [
@@ -80,11 +83,21 @@ const login = () => {
             return;
         }
 
-        let localData = localStorage.getItem("userData");
+        let localData = sessionStorage.getItem("userData");
         let parseLocalData;
-        if(localData){
+        if (localData) {
             parseLocalData = JSON.parse(localData);
             console.log(parseLocalData);
+        } else {
+            parseLocalData = [obj];
+        }
+
+        if (email == "admin@gmail.com" && password == "admin123") {
+            sessionStorage.setItem("authedAdmin", "LOGGED IN")
+            dispatch(setSignin());
+            dispatch(setAdmin());
+            router.push('/')
+            return;
         }
 
 
@@ -92,9 +105,10 @@ const login = () => {
 
             if (parseLocalData[i].email === email && parseLocalData[i].password === password) {
                 setLogError(null)
-                localStorage.setItem("authedUser", "LOGGED IN")
+                sessionStorage.setItem("authedUser", "LOGGED IN")
+                dispatch(setSignin());
                 router.push('/')
-                if(parseLocalData[i].user === "admin"){
+                if (parseLocalData[i].user === "admin") {
                     router.push('/')
                 }
                 break;
@@ -130,7 +144,6 @@ const login = () => {
 
                     <button>Login</button>
                     <div className='text-stone-800 font-semibold mt-4'>Don't have an account? <Link href="/register" legacyBehavior><span className='text-violet-500 underline underline-offset-2 hover:no-underline cursor-pointer'>Register Here</span></Link></div>
-                    <p>{logError}</p>
 
                 </form>
             </div>

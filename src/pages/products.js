@@ -13,7 +13,7 @@ function Products({ data }) {
     const toggleValue = useSelector((state) => state.toggle.value);
     const noOfItemsValue = useSelector((state) => state.toggle.noOfItems);
     const items = useSelector((state) => state.toggle.items)
-    console.log(items)
+    const admin = useSelector((state) => state.toggle.admin);
     const dispatch = useDispatch();
 
     const [productData, setProductData] = useState([]);
@@ -24,11 +24,11 @@ function Products({ data }) {
 
     useEffect(() => {
         function setLocalData() {
-            let localData = localStorage.getItem("apiData");
+            let localData = sessionStorage.getItem("apiData");
             if (localData) {
-                setProductData(JSON.parse(localData))                                     //Get api data from the localStorage to get avoid duplicate GET request
+                setProductData(JSON.parse(localData))                                     //Get api data from the sessionStorage to get avoid duplicate GET request
             } else {
-                localStorage.setItem("apiData", JSON.stringify(items.products));          //Store the api data if not already stored
+                sessionStorage.setItem("apiData", JSON.stringify(items.products));          //Store the api data if not already stored
                 setProductData(items.products)
             }
         }
@@ -130,7 +130,7 @@ function Products({ data }) {
                         <button onClick={filterPriceRange}>Filter</button>
                     </article>
 
-                    <AddProduct styles={styles} setProductData={setProductData} />
+                    {admin && <AddProduct styles={styles} setProductData={setProductData} />}
                 </div>
 
                 <article className={styles.productBox}>
@@ -160,7 +160,7 @@ function Products({ data }) {
                             return filter_func(productData);
                         })
                         .map((item) => (
-                            <Cards key={item.id} items={item} setProductData={setProductData}/>
+                            <Cards key={item.id} items={item} setProductData={setProductData} />
                         ))}
 
                     {/* </tbody>

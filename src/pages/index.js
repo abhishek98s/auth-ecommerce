@@ -21,8 +21,8 @@ export default function Home({data}) {
   dispatch(setApiData(data));
 
   useEffect(() => {
-    // Perform localStorage action
-    setItem(localStorage.getItem('token'))
+    // Perform sessionStorage action
+    setItem(sessionStorage.getItem('token'))
   }, [])
   
   if(items){

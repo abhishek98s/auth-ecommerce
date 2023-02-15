@@ -15,7 +15,7 @@ export default function Cart() {
   
   // Set the total number of items present in the cart in navbar
   useEffect(() => {
-     let CartData = localStorage.getItem("cart");
+     let CartData = sessionStorage.getItem("cart");
      let parseCartData = JSON.parse(CartData);
 
      setCartItems(JSON.parse(CartData));
@@ -38,13 +38,13 @@ export default function Cart() {
 
     // if (arr[ind].amount === 0) arr[ind].amount = 1;
     setCartItems([...arr]);
-    localStorage.setItem("cart", JSON.stringify(arr))
+    sessionStorage.setItem("cart", JSON.stringify(arr))
   }
 
 
   function removeItem(id){
     const arr = cartItems.filter((item) => item.id !== id);
-    localStorage.setItem("cart",JSON.stringify(arr))
+    sessionStorage.setItem("cart",JSON.stringify(arr))
     setCartItems(arr);
   }
 

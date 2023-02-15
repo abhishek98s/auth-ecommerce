@@ -10,7 +10,7 @@ const withAuth = (Component) => {
 
         useEffect(() => {
             const getUser = async () => {
-                const response = localStorage.getItem("authedUser");
+                const response = sessionStorage.getItem("authedUser") || sessionStorage.getItem("authedAdmin") ;
                 if (!response) {
                     router.push('/login');
                 } 

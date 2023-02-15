@@ -4,6 +4,8 @@ const initialState = {
     value: false,
     noOfItems: 0,
     items: [],
+    signin: false,
+    admin: false,
 }
 
 export const counterSLice = createSlice({
@@ -18,10 +20,16 @@ export const counterSLice = createSlice({
         },
         setApiData: (state, action) => {
             state.items = action.payload
+        },
+        setSignin: (state) => {
+            state.signin = !(state.signin)
+        },
+        setAdmin: (state) => {
+            state.admin = !(state.admin)
         }
     }
 })
 
-export const { toggle, noOfItems, setApiData } = counterSLice.actions;
+export const { toggle, noOfItems, setApiData, setSignin, setAdmin } = counterSLice.actions;
 
 export default counterSLice.reducer

@@ -7,16 +7,17 @@ import { Close } from "public/svg";
 
 const Cards = ({ items, setProductData }) => {
   const noOfItemsValue = useSelector((state) => state.toggle.noOfItems);
+  const admin = useSelector((state) => state.toggle.admin);
   const dispatch = useDispatch();
 
   const { id, images, title, price, category } = items;
 
   const deleteItem = () => {
-    let apiData = JSON.parse(localStorage.getItem("apiData"));
+    let apiData = JSON.parse(sessionStorage.getItem("apiData"));
 
     if(apiData){
         const arr = apiData.filter((item) => item.id !== id);
-        localStorage.setItem("apiData",JSON.stringify(arr));
+        sessionStorage.setItem("apiData",JSON.stringify(arr));
         setProductData(arr);
       
     }
@@ -24,10 +25,10 @@ const Cards = ({ items, setProductData }) => {
   }
 
   const AddToCart = () => {
-    let cart = localStorage.getItem("cart");
+    let cart = sessionStorage.getItem("cart");
 
     if (cart) {
-      let cartData = JSON.parse(localStorage.getItem("cart"));
+      let cartData = JSON.parse(sessionStorage.getItem("cart"));
 
       // Avoid duplication in the cart
       for (let i = 0; i < cartData.length; i++) {
@@ -44,7 +45,7 @@ const Cards = ({ items, setProductData }) => {
       let arr = cartData;
       arr.push(items);
       dispatch(noOfItems(arr.length))
-      localStorage.setItem("cart", JSON.stringify(arr));
+      sessionStorage.setItem("cart", JSON.stringify(arr));
 
 
     } else {
@@ -53,13 +54,13 @@ const Cards = ({ items, setProductData }) => {
         items.amount = 1;
       }
       arr.push(items);
-      localStorage.setItem("cart", JSON.stringify(arr));
+      sessionStorage.setItem("cart", JSON.stringify(arr));
     }
   }
 
   return (
     <div key={id} className={styles.productcard}>
-      <div className={styles.product_top} onClick={deleteItem}>
+      { admin && <div className={styles.product_top} onClick={deleteItem}>
         <Close className={styles.delete} />
         {/* <div className={styles.product_img}>
           <Image
@@ -70,7 +71,7 @@ const Cards = ({ items, setProductData }) => {
             height="200"
           />
         </div> */}
-      </div>
+      </div>}
 
       <div className={styles.product_down}>
         <h2>{title}</h2>

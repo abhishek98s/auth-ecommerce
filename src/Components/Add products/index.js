@@ -28,7 +28,7 @@ const AddProduct = ({ setProductData }) => {
         setValues((values) => ({ ...values, name: '' }));
         setValues((values) => ({ ...values, price: '' }));
         
-        let localData = localStorage.getItem("apiData");
+        let localData = sessionStorage.getItem("apiData");
         if(localData){
             let parseLocalData = JSON.parse(localData);
 
@@ -42,7 +42,7 @@ const AddProduct = ({ setProductData }) => {
 
             setProductData(parseLocalData)
 
-            localStorage.setItem("apiData", JSON.stringify(parseLocalData))
+            sessionStorage.setItem("apiData", JSON.stringify(parseLocalData))
 
             
         }
