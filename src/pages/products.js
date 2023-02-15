@@ -160,7 +160,7 @@ function Products({ data }) {
                             return filter_func(productData);
                         })
                         .map((item) => (
-                            <Cards key={item.id} items={item} />
+                            <Cards key={item.id} items={item} setProductData={setProductData}/>
                         ))}
 
                     {/* </tbody>

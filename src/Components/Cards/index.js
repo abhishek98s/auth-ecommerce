@@ -3,12 +3,25 @@ import styles from './cards.module.scss'
 import Image from "next/image";
 import { useSelector, useDispatch } from "react-redux";
 import { noOfItems } from "@/Redux/toggleSlice";
+import { Close } from "public/svg";
 
-const Cards = ({ items }) => {
+const Cards = ({ items, setProductData }) => {
   const noOfItemsValue = useSelector((state) => state.toggle.noOfItems);
   const dispatch = useDispatch();
 
   const { id, images, title, price, category } = items;
+
+  const deleteItem = () => {
+    let apiData = JSON.parse(localStorage.getItem("apiData"));
+
+    if(apiData){
+        const arr = apiData.filter((item) => item.id !== id);
+        localStorage.setItem("apiData",JSON.stringify(arr));
+        setProductData(arr);
+      
+    }
+
+  }
 
   const AddToCart = () => {
     let cart = localStorage.getItem("cart");
@@ -46,8 +59,9 @@ const Cards = ({ items }) => {
 
   return (
     <div key={id} className={styles.productcard}>
-      {/* <div className={styles.product_top}>
-        <div className={styles.product_img}>
+      <div className={styles.product_top} onClick={deleteItem}>
+        <Close className={styles.delete} />
+        {/* <div className={styles.product_img}>
           <Image
             src={images[0]}
             priority="true"
@@ -55,8 +69,8 @@ const Cards = ({ items }) => {
             width="200"
             height="200"
           />
-        </div>
-      </div> */}
+        </div> */}
+      </div>
 
       <div className={styles.product_down}>
         <h2>{title}</h2>
