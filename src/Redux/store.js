@@ -14,7 +14,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     toggle: toggleReducer,
-    notes: orderReducer
+    order: orderReducer
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
