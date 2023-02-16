@@ -30,7 +30,7 @@ export default function Navbar() {
     return (
         <>
             <div className={styles.navbar}>
-                <Link href="/"><h1>ACEHOP</h1></Link>
+                <Link href="/"><h1>AESOP</h1></Link>
 
                 <div className={cn({
                     [styles.navbarList]: toggle === false,
