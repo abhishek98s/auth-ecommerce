@@ -16,8 +16,8 @@ export default function Navbar() {
         setToggle(!toggle);
 
         if(e.target.name == "logout"){
-            sessionStorage.removeItem("authedUser");
-            sessionStorage.removeItem("authedAdmin");
+            sessionStorage.clear();
+            // sessionStorage.removeItem("authedAdmin");
             dispatch(setSignin());
 
             if(admin){
