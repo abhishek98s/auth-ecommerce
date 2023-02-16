@@ -36,25 +36,28 @@ const Cards = ({ items, setProductData }) => {
           return;
         }
       }
+      
+      let cartItem = items;
 
-
-      if (items.amount == undefined) {
-        items.amount = 1;
+      if (cartItem.amount == undefined) {
+        cartItem.amount = 1;
       }
 
       let arr = cartData;
-      arr.push(items);
+      arr.push(cartItem);
       dispatch(noOfItems(arr.length))
       sessionStorage.setItem("cart", JSON.stringify(arr));
 
 
     } else {
       let arr = [];
-      if (items.amount == undefined) {
-        items.amount = 1;
+      let cartItem = items;
+      if (cartItem.amount == undefined) {
+        cartItem.amount = 1;
       }
-      arr.push(items);
-      sessionStorage.setItem("cart", JSON.stringify(arr));
+      arr.push(cartItem);
+      dispatch(noOfItems(arr.length))
+      sessionStorage.setItem("cart", JSON.stringify(cartItem));
     }
   }
 
