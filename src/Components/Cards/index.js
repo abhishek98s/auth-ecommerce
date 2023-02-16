@@ -37,7 +37,7 @@ const Cards = ({ items, setProductData }) => {
         }
       }
       
-      let cartItem = items;
+      let cartItem = {...items};
 
       if (cartItem.amount == undefined) {
         cartItem.amount = 1;
@@ -51,7 +51,7 @@ const Cards = ({ items, setProductData }) => {
 
     } else {
       let arr = [];
-      let cartItem = items;
+      let cartItem = {...items};
       if (cartItem.amount == undefined) {
         cartItem.amount = 1;
       }
