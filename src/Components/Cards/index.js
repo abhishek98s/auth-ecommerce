@@ -57,7 +57,7 @@ const Cards = ({ items, setProductData }) => {
       }
       arr.push(cartItem);
       dispatch(noOfItems(arr.length))
-      sessionStorage.setItem("cart", JSON.stringify(cartItem));
+      sessionStorage.setItem("cart", JSON.stringify(arr));
     }
   }
 
