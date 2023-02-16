@@ -21,10 +21,10 @@ export default function Cart() {
      if(CartData){
        let parseCartData = JSON.parse(CartData);
        dispatch(noOfItems(parseCartData.length))
+       handlePrice();
       }
-      handlePrice();
-
-  }, [cartItems])
+      
+    }, [cartItems])
 
 
   const handleChange = (item, d) => {
@@ -60,7 +60,9 @@ export default function Cart() {
 
 
   useEffect(() => {
-    handlePrice();
+    if(cartItems){
+      handlePrice();
+     }
   },[])
 
   return (
