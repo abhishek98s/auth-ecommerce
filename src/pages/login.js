@@ -143,7 +143,7 @@ const login = () => {
                     </div>
 
                     <button>Login</button>
-                    <div className='text-stone-800 font-semibold mt-4'>Don't have an account? <Link href="/register" legacyBehavior><span className='text-violet-500 underline underline-offset-2 hover:no-underline cursor-pointer'>Register Here</span></Link></div>
+                    <div className='text-white-300 font-semibold mt-4'>Don't have an account? <Link href="/register" legacyBehavior><span className='text-teal-300 underline underline-offset-4 hover:no-underline cursor-pointer'>Register Here</span></Link></div>
 
                 </form>
             </div>
