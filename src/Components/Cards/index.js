@@ -27,8 +27,8 @@ const Cards = ({ items, setProductData }) => {
   const AddToCart = () => {
     let cart = sessionStorage.getItem("cart");
 
-    if (cart.length) {
-      let cartData = JSON.parse(cart);
+    if (cart) {
+      let cartData = JSON.parse(sessionStorage.getItem("cart"));
 
       // Avoid duplication in the cart
       for (let i = 0; i < cartData.length; i++) {

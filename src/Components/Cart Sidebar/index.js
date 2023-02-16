@@ -5,24 +5,24 @@ import { CartSvg, Close } from "public/svg";
 import CartCards from "./Cart Cards/index,";
 import { toggle, noOfItems } from "@/Redux/toggleSlice";
 import { useSelector, useDispatch } from "react-redux";
+import { useLocalStorage } from "@/Custom Hook/localStorage";
 
 export default function Cart() {
   const toggleValue = useSelector((state) => state.toggle.value)
   const noOfItemsValue = useSelector((state) => state.toggle.noOfItems)
-  const [cartItems, setCartItems] = useState([]);
+  const [cartItems, setCartItems] = useLocalStorage("cart");
   const [total_price, setTotal_price] = useState(0);
   const dispatch = useDispatch();
   
   // Set the total number of items present in the cart in navbar
   useEffect(() => {
-     let CartData = sessionStorage.getItem("cart");
-     let parseCartData = JSON.parse(CartData);
-
-     setCartItems(JSON.parse(CartData));
-     if(CartData){
-       dispatch(noOfItems(parseCartData.length))
+    //  let CartData = sessionStorage.getItem("cart");
+     
+     if(cartItems){
+      //  let parseCartData = JSON.parse(CartData);
+       dispatch(noOfItems(cartItems.length))
+       handlePrice();
       }
-      handlePrice();
 
   }, [cartItems])
 
